@@ -10,10 +10,6 @@ export const MainPage = () => {
             <AppBar position="static">
                 <Container maxWidth='xl'>
                     <Toolbar disableGutters>
-                        {/* <Avatar alt="Tcc"
-                            sx={{ display: { xs: 'none', md: 'flex' }, m: 1, height: '25px', width: '25px' }}
-                        //  src={Logo_default_linestur} 
-                        /> */}
                         <IconButton href="/">
                             <HomeOutlined />
                         </IconButton>
@@ -27,7 +23,7 @@ export const MainPage = () => {
                                 fontWeight: 700,
                                 textDecoration: 'none',
                             }}>
-                            TCC
+                            Sophia
                         </Typography>
                     </Toolbar>
                 </Container>

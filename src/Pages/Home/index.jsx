@@ -1,10 +1,8 @@
 import { ChatOutlined } from "@mui/icons-material";
-import { Avatar, Box, Button, Fab, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Fab, Grid, Typography } from "@mui/material";
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import teste_persona from "../../Asset/teste_persona.png";
-
-
 
 export const HomePage = () => {
     const navigate = useNavigate();
@@ -12,8 +10,6 @@ export const HomePage = () => {
     const handleClickStartChat = () => {
         navigate('/chat')
     }
-
-
 
     return (
 
@@ -25,7 +21,7 @@ export const HomePage = () => {
                     </Grid>
                     <Grid item xs={12} padding={2} textAlign={'justify'}>
                         <Typography variant="body" >
-                            Olá, serei a sua ajudante! Para começar, pressione o botão escrito 'novo',
+                            Olá, me chamo Sophia, estou aqui para te ajudar! Para começar uma conversa, pressione o botão escrito 'novo',
                         </Typography>
                     </Grid>
                 </Grid>

@@ -8,7 +8,7 @@ export const MessageLoadingComponent = () => {
             <Box display={'flex'} my={1}>
                 <Avatar
                     sx={{ height: 30, width: 30, ml: '2px', mr: '5px' }}
-                    alt={'TCC'}
+                    alt={'Sophia'}
                 >
                     T
                 </Avatar>

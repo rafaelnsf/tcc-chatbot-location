@@ -35,7 +35,7 @@ const WarningAvailableDesktopPage = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        TCC
+                        Sophia
                     </Typography>
                     <Typography variant="h5" component={"h1"}>
                         Só está disponível na versão para em dispositivos móveis.

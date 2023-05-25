@@ -1,5 +1,5 @@
 import { SendOutlined } from "@mui/icons-material";
-import { Box, IconButton, Paper, TextField } from "@mui/material";
+import { Box, Button, IconButton, Paper, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { usePromiseTracker } from "react-promise-tracker";
 import background_chat from '../../Asset/background_chat.png';
@@ -26,13 +26,10 @@ export const ChatPage = () => {
             message: message,
             date: Date()
         }
-        console.log("🚀 ~ file: index.jsx:25 ~ sendMessage ~ dto:", dto)
         setMessages(prevState => [...prevState, dto])
         setMessage('')
         sendMessage()
     }
-
-
 
     const sendMessage = async () => {
         try {
@@ -46,13 +43,18 @@ export const ChatPage = () => {
             }
             setMessages(prevState => [...prevState, testeLoading])
             let response = await chat_service.postMessageToAI(dtoSend)
-            let dtoResponse = {
-                isUser: false,
-                message: response.data.fulfillmentText,
-                date: Date()
-            }
             setMessages((prevState) => (prevState.slice(0, -1)));
-            setMessages(prevState => [...prevState, dtoResponse])
+            response.data.fulfillmentText.map((item) => {
+                let dtoResponse = {
+                    isUser: false,
+                    message: Boolean(item.img) ? 'https://drive.google.com/uc?export=view&id=' + item.img.match('(?<=\/d\/).+(?=\/view\?)')[0] : item,
+                    date: Date(),
+                    isImg: Boolean(item.img)
+                }
+                setMessages(prevState => [...prevState, dtoResponse])
+            }
+            )
+            console.log("🚀  sendMessage ~ response:", response)
         } catch (e) {
             alert(e)
             console.log('sendMessage ~ error: ', e)
@@ -72,7 +74,7 @@ export const ChatPage = () => {
         setTimeout(() => {
             let dto = {
                 isUser: false,
-                message: 'Bem vindo(a) ao TCC, em que posso lhe ajudar?',
+                message: 'Bem vindo(a), em que posso lhe ajudar?',
                 date: Date()
             }
             setMessages([dto])
@@ -84,8 +86,11 @@ export const ChatPage = () => {
         promiseInProgress === true ? setIsLoading(true) : setIsLoading(false)
     }, [promiseInProgress])
 
+
+    var teste1 = "https://drive.google.com/file/d/1tjFc6YCp89JtZmEqB4BYGbaHmCJpH88E/view?usp=share_link";
     return (
         <>
+            <Button onClick={() => console.log('teste', teste1.match('(?<=\/d\/).+(?=\/view\?)')[0])}>teste</Button>
             <Paper elevation={0} sx={{ height: 'calc(100vh - 128px)', backgroundImage: background_chat, overflowY: 'scroll' }} >
                 {isLoadingFirts ? (
                     <MessageLoadingComponent />
@@ -100,7 +105,6 @@ export const ChatPage = () => {
                 ))}
                 <div ref={scrollRef} />
             </Paper>
-            {/* <Box padding={2} color={'primary'} sx={{ backgroundColor: '#257ca3' }} display={'flex'}> */}
             <Box padding={2} color={'primary'} display={'flex'}>
                 <TextField
                     autoFocus
@@ -127,8 +131,8 @@ export const ChatPage = () => {
                     <SendOutlined color="primary" />
                 </IconButton>
             </Box>
-            <Box sx={{ display: { xs: 'none', md: 'none', sm: 'flex' } }}>
-            </Box>
+            {/* <Box sx={{ display: { xs: 'none', md: 'none', sm: 'flex' } }}>
+            </Box> */}
         </>
     )
 }
