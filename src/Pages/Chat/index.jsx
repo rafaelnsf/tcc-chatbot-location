@@ -43,11 +43,13 @@ export const ChatPage = () => {
             }
             setMessages(prevState => [...prevState, testeLoading])
             let response = await chat_service.postMessageToAI(dtoSend)
+
             setMessages((prevState) => (prevState.slice(0, -1)));
             response.data.fulfillmentText.map((item) => {
+                console.log(Boolean(item.img) ? null : item.replaceAll('\\n', '\n'))
                 let dtoResponse = {
                     isUser: false,
-                    message: Boolean(item.img) ? 'https://drive.google.com/uc?export=view&id=' + item.img.match('(?<=\/d\/).+(?=\/view\?)')[0] : item,
+                    message: Boolean(item.img) ? 'https://drive.google.com/uc?export=view&id=' + item.img.match('(?<=\/d\/).+(?=\/view\?)')[0] : item.replaceAll('\\n', '\n'),
                     date: Date(),
                     isImg: Boolean(item.img)
                 }
@@ -74,7 +76,7 @@ export const ChatPage = () => {
         setTimeout(() => {
             let dto = {
                 isUser: false,
-                message: 'Bem vindo(a), em que posso lhe ajudar?',
+                message: 'Para começar, me manda um OI 😀',
                 date: Date()
             }
             setMessages([dto])
@@ -86,11 +88,8 @@ export const ChatPage = () => {
         promiseInProgress === true ? setIsLoading(true) : setIsLoading(false)
     }, [promiseInProgress])
 
-
-    var teste1 = "https://drive.google.com/file/d/1tjFc6YCp89JtZmEqB4BYGbaHmCJpH88E/view?usp=share_link";
     return (
         <>
-            <Button onClick={() => console.log('teste', teste1.match('(?<=\/d\/).+(?=\/view\?)')[0])}>teste</Button>
             <Paper elevation={0} sx={{ height: 'calc(100vh - 128px)', backgroundImage: background_chat, overflowY: 'scroll' }} >
                 {isLoadingFirts ? (
                     <MessageLoadingComponent />

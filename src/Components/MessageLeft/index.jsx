@@ -6,6 +6,8 @@ import { ImageFullScreenMessageComponent } from "../ImageFullScreenMessage";
 
 export const MessageLeftComponent = (props) => {
     const msg = props.item;
+
+    const teste = msg.message + ""
     const [openDialogFullScreenImg, setOpenDialogFullScreenImg] = useState();
 
     const handleClickOpenFullScreenImg = () => {
@@ -21,6 +23,7 @@ export const MessageLeftComponent = (props) => {
             }} />
             <Box display={'flex'} my={1}>
                 <Avatar
+                    onClick={() => console.log(typeof (msg.message), typeof (props.teste))}
                     sx={{ height: 30, width: 30, ml: '2px', mr: '5px' }}
                     alt={'Sophia'}
                 >
@@ -45,9 +48,12 @@ export const MessageLeftComponent = (props) => {
                                     />
                                 </Card>
                             ) : (
-                                <Typography variant="body" style={{ whiteSpace: 'pre-line' }}>
-                                    {msg.message}
-                                </Typography>
+
+                                <>
+                                    <Typography variant="body" style={{ whiteSpace: 'pre-line' }}>
+                                        {msg.message}
+                                    </Typography>
+                                </>
                             )}
                             <Typography variant="body2" textAlign={'right'} color={'secondary'}>
                                 {DateFormatter(msg.date, true)}
