@@ -46,17 +46,20 @@ export const ChatPage = () => {
 
             setMessages((prevState) => (prevState.slice(0, -1)));
             response.data.fulfillmentText.map((item) => {
-                console.log(Boolean(item.img) ? null : item.replaceAll('\\n', '\n'))
+
+                let tempMessage = Boolean(item.img) ?
+                    'https://drive.google.com/uc?export=view&id=' + item.img.match('\/d\/.+\/view')[0].replace('/d/', '').replace('/view', '') :
+                    item.replaceAll('\\n', '\n');
+
                 let dtoResponse = {
                     isUser: false,
-                    message: Boolean(item.img) ? 'https://drive.google.com/uc?export=view&id=' + item.img.match('(?<=\/d\/).+(?=\/view\?)')[0] : item.replaceAll('\\n', '\n'),
+                    message: tempMessage,
                     date: Date(),
                     isImg: Boolean(item.img)
                 }
                 setMessages(prevState => [...prevState, dtoResponse])
             }
             )
-            console.log("🚀  sendMessage ~ response:", response)
         } catch (e) {
             alert(e)
             console.log('sendMessage ~ error: ', e)
@@ -76,7 +79,7 @@ export const ChatPage = () => {
         setTimeout(() => {
             let dto = {
                 isUser: false,
-                message: 'Para começar, me manda um OI 😀',
+                message: 'Para começar, me envie um Oi 😀',
                 date: Date()
             }
             setMessages([dto])
