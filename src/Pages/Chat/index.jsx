@@ -64,7 +64,7 @@ export const ChatPage = () => {
             alert(e)
             console.log('sendMessage ~ error: ', e)
         } finally {
-            document.getElementById("textField_message").focus();
+            // document.getElementById("textField_message").focus();
         }
     }
 
